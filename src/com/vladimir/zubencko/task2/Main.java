@@ -27,13 +27,13 @@ public class Main {
         }
 
         Route route = null;
-        City sourceCity = cities.get(0);         // source city
-        City DestinationCity = cities.get(3);   //destinationCity
+        City sourceCity = cities.get(0);            // source city
+        City DestinationCity = cities.get(3);       // destination city
         RouteService minRoute = new RouteService(sourceCity, DestinationCity, cities);
         try {
-            route = minRoute.calculateMinRoute(); // get min route
-        } catch (IllegalArgumentException e) {// illegal data
-            System.out.println(e.getMessage()); // print message
+            route = minRoute.calculateMinRoute();   // get min route
+        } catch (IllegalArgumentException e) {      // illegal data
+            System.out.println(e.getMessage());     // print message
         }
         if (route != null) {
             new Main().printRoute(route);
@@ -41,7 +41,7 @@ public class Main {
     }
 
     // print route
-    public void printRoute(Route route) {
+    private void printRoute(Route route) {
         if (route.getRoutes().size() != 0) {
             for (Route route1 : route.getRoutes()) {
                 System.out.print("cost = " + route1.getCost() + " route: ");

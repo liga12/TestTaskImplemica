@@ -10,9 +10,9 @@ public class RouteService {
     private List<City> cities;      // list all cities
     private Route mainRoute;        // minRoute from destination city to source city
 
-    public RouteService(City sourceCity, City DestinationCity, List<City> cities) {
+    public RouteService(City sourceCity, City destinationCity, List<City> cities) {
         this.sourceCity = sourceCity;
-        this.destinationCity = DestinationCity;
+        this.destinationCity = destinationCity;
         this.cities = cities;
     }
 
@@ -28,19 +28,19 @@ public class RouteService {
     // data validation
     private void validateData() {
         if (cities == null) {   // check the list of cities on  empty
-            throw new IllegalArgumentException("Illegal data");//generate Exception
+            throw new IllegalArgumentException("Illegal data");     //generate Exception
         }
-        if (sourceCity.getIndex() == destinationCity.getIndex()) { //check source city  equals  destination city
+        if (sourceCity.getIndex() == destinationCity.getIndex()) {  //check source city  equals  destination city
             throw new IllegalArgumentException("Illegal data");
         }
-        boolean isSource = false;       // indicator existence source city
-        boolean isDestination = false;   // indicator existence destination city
+        boolean isSource = false;                                   // indicator existence source city
+        boolean isDestination = false;                              // indicator existence destination city
         for (City city : cities) { // loop at list city
             if (city.getIndex() == sourceCity.getIndex()) {         // check source city on existence
                 isSource = true;                                    //source city exist
             }
             if (city.getIndex() == destinationCity.getIndex()) {    // check destination city on existence
-                isDestination = true;                                //destination city exist
+                isDestination = true;                               //destination city exist
             }
         }
         if (!isSource && isDestination) {
@@ -55,6 +55,7 @@ public class RouteService {
         Route sourceRoute = new Route(cities);                          // create new object Route and set destination city
         Route route = calculateNeighborsRouts(sourceCity, sourceRoute); // get nearby from source city
         mainRoute.setRoutes(route.getRoutes());                         // add in min route firs routes
+        checkMinRoute();
     }
 
     // calculate route from source city to destination city
@@ -87,12 +88,12 @@ public class RouteService {
     }
 
     // get neighbors routs
-    private Route calculateNeighborsRouts(City DestinationCity, Route visitCity) { // current city  and visited city
+    private Route calculateNeighborsRouts(City destinationCity, Route visitCity) { // current city  and visited city
         Route route = new Route();
-        City city = cities.get(DestinationCity.getIndex());          // get index current city
-        route.setSource(city);                                       // add city from connection
+        City city = cities.get(destinationCity.getIndex());         // get index current city
+        route.setSource(city);                                      // add city from connection
         List<Route> routes = new ArrayList<>();
-        List<City> neighbors = city.getCities();                     // get neighbor cities
+        List<City> neighbors = city.getCities();                    // get neighbor cities
         for (City neighbor : neighbors) {
             if (!isVisited(visitCity, neighbor)) {                  // check visited
                 Route neighborRout = calculateRout(neighbor, city); //get route from current city
@@ -118,10 +119,10 @@ public class RouteService {
     //get route from current city
     private Route calculateRout(City neighbor, City city) {
         Route currentRoute = new Route(neighbor.getCoast(), city, neighbor); // current routs from destination city
-        if (neighbor.getIndex() == destinationCity.getIndex()) { //  check  current city equals destination city
-            currentRoute.setEndRoute(true);                     //set indicator end route
+        if (neighbor.getIndex() == destinationCity.getIndex()) {        //  check  current city equals destination city
+            currentRoute.setEndRoute(true);                             //set indicator end route
         } else {
-            currentRoute.setEndRoute(false);                    //set indicator end route
+            currentRoute.setEndRoute(false);                            //set indicator end route
         }
         List<City> cities = new ArrayList<>();
         cities.add(city);
@@ -143,13 +144,13 @@ public class RouteService {
 
     // edit route
     private void editRoutes(List<Route> routes, List<Route> oldRoutes, List<Route> newRoutes) {
-        Boolean endRoute = null; // indicator end route
+        Boolean endRoute = null;            // indicator end route
         if (newRoutes != null) {
-            routes.removeAll(oldRoutes); // delete route from previous city to current city
-            routes.addAll(newRoutes);    // add new route from source city to current city
+            routes.removeAll(oldRoutes);    // delete route from previous city to current city
+            routes.addAll(newRoutes);       // add new route from source city to current city
         }
         for (Route route : mainRoute.getRoutes()) {
-            if (route.isEndRoute()) {   //check list route, all route have destination city
+            if (route.isEndRoute()) {       //check list route, all route have destination city
                 endRoute = true;
             } else {
                 endRoute = false;
@@ -157,11 +158,12 @@ public class RouteService {
             }
         }
         if (endRoute) {
-            mainRoute.setEndRoute(true); // all route have destination city
+            mainRoute.setEndRoute(true);    // all route have destination city
         }
     }
 
     private void checkMinRoute() {
+        findEndMinRoute();                                                  //check  is min route end
         List<Route> routes = mainRoute.getRoutes();                     //get list routes
         Route minRoute = null;                                          // min route
         boolean isMinRoute = false;                                     // indicator min route
@@ -183,6 +185,31 @@ public class RouteService {
                     }
                 }
             }
+        }
+    }
+
+    private void findEndMinRoute() {
+        boolean isMinRoute = false;
+        Route minRoute = null;
+        List<Route> removeRoutes = new ArrayList<>();        // unfinished route
+        List<Route> routes = mainRoute.getRoutes();
+        for (Route route : routes) {                        // loop from routes
+            if (!isMinRoute) {                              // check min route
+                minRoute = route;                           // set min route
+                isMinRoute = true;
+            }
+            if (minRoute.getCost() > route.getCost()) {     // check cost min route > cost current route
+                minRoute = route;
+            }
+        }
+        if (minRoute.isEndRoute()) {                        // check route is end
+            mainRoute.setEndRoute(true);                    // set min route
+            for (Route route : routes) {                    // loop from routes
+                if (!route.isEndRoute()) {                  // check route is end
+                    removeRoutes.add(route);                // add unfinished routes
+                }
+            }
+            routes.removeAll(removeRoutes);                 // delete unfinished routes
         }
     }
 }
