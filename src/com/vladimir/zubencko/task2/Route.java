@@ -2,27 +2,66 @@ package com.vladimir.zubencko.task2;
 
 import java.util.List;
 
+/**
+ * Route from parameters: @{@link Route#endRoute}, @{@link Route#cost}, @{@link Route#source},@{@link Route#destination}, @{@link Route#cities}, @{@link Route#routes}
+ *
+ * @author Vladimir Zubencko
+ * @version 1.0
+ */
 public class Route {
 
+    /**
+     * End route
+     */
     private boolean endRoute;
 
-    private  int cost;
+    /**
+     * Cost route
+     */
+    private int cost;
 
+    /**
+     * Source city
+     */
     private City source;
 
+    /**
+     * Destination city
+     */
     private City destination;
 
+    /**
+     * List route cities
+     */
     private List<City> cities;
 
+    /**
+     * List routes
+     */
     private List<Route> routes;
 
+    /**
+     * Create new object
+     */
     public Route() {
     }
 
+    /**
+     * Create new object
+     *
+     * @param cities @{@link Route#cities}
+     */
     public Route(List<City> cities) {
         this.cities = cities;
     }
 
+    /**
+     * Create new object
+     *
+     * @param cost        @{@link Route#cost}
+     * @param source      @{@link Route#source}
+     * @param destination @{@link Route#destination}
+     */
     public Route(int cost, City source, City destination) {
         this.cost = cost;
         this.source = source;

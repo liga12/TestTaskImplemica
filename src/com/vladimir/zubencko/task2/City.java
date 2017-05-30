@@ -2,23 +2,48 @@ package com.vladimir.zubencko.task2;
 
 import java.util.List;
 
+/**
+ * City from parameters: @{@link City#name}, @{@link City#index}, @{@link City#cost}.
+ *
+ * @author Vladimir Zubencko
+ * @version 1.0
+ */
 public class City {
 
+    /**
+     * Name city
+     */
     private String name;
 
+    /**
+     * Index city
+     */
     private int index;
 
-    private int coast;
+    /**
+     * Cost from neighborminimum
+     */
+    private int cost;
 
     private List<City> neighborCities;
 
+    /**
+     * Create new object
+     */
     public City() {
     }
 
-    public City(String name, int index, int coast) {
+    /**
+     * Create new object
+     *
+     * @param name  @{@link City#name}
+     * @param index @{@link City#index}
+     * @param cost  @{@link City#cost}
+     */
+    public City(String name, int index, int cost) {
         this.name = name;
         this.index = index;
-        this.coast = coast;
+        this.cost = cost;
     }
 
     public String getName() {
@@ -37,12 +62,12 @@ public class City {
         this.index = index;
     }
 
-    public int getCoast() {
-        return coast;
+    public int getCost() {
+        return cost;
     }
 
-    public void setCoast(int coast) {
-        this.coast = coast;
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public List<City> getNeighborCities() {
