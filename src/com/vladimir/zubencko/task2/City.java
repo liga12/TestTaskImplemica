@@ -6,11 +6,14 @@ public class City {
 
     private String name;
 
-    private int index;        // index city
+    private int index;
 
     private int coast;
 
-    private List<City> cities; //list of neighbors
+    private List<City> neighborCities;
+
+    public City() {
+    }
 
     public City(String name, int index, int coast) {
         this.name = name;
@@ -42,11 +45,11 @@ public class City {
         this.coast = coast;
     }
 
-    public List<City> getCities() {
-        return cities;
+    public List<City> getNeighborCities() {
+        return neighborCities;
     }
 
-    public void setCities(List<City> cities) {
-        this.cities = cities;
+    public void setNeighborCities(List<City> neighborCities) {
+        this.neighborCities = neighborCities;
     }
 }

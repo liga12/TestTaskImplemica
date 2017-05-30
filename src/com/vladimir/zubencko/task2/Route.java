@@ -4,17 +4,17 @@ import java.util.List;
 
 public class Route {
 
-    private boolean endRoute;   // indicator of end route
+    private boolean endRoute;
 
-    private  int cost;          //city source
+    private  int cost;
 
-    private City source;         //city destination
+    private City source;
 
     private City destination;
 
-    private List<City> cities;   //route route from city destination to city source
+    private List<City> cities;
 
-    private List<Route> routes;  //list route
+    private List<Route> routes;
 
     public Route() {
     }

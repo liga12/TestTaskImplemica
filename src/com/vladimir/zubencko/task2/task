@@ -1,12 +1,12 @@
- You are given a list of cities. Each direct connection between two cities has its transportation cost (an integer bigger than 0). The goal is to find the paths of minimum cost between pairs of cities. Assume that the cost of each path (which is the sum of costs of all direct connections belongning to this path) is at most 200000. The name of a city is a string containing characters a,...,z and is at most 10 characters long.2) 
-
-
-
+ You are given a list of neighborCities. Each direct connection between two neighborCities has its transportation cost
+ (an integer bigger than 0). The goal is to find the paths of minimum cost between pairs of neighborCities.
+ Assume that the cost of each path (which is the sum of costs of all direct connections belongning to this path)
+ is at most 200000. The name of a city is a string containing characters a,...,z and is at most 10 characters long.2)
 
 Input
 
 s [the number of tests <= 10]
-n [the number of cities <= 10000]
+n [the number of neighborCities <= 10000]
 NAME [city name]
 p [the number of neighbours of city NAME]
 nr cost [nr - index of a city connected to NAME (the index of the first city is 1)]
